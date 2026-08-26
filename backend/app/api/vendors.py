@@ -3,6 +3,12 @@ from app.database.mongodb import db
 from app.models.vendor import VendorCreate
 from bson import ObjectId
 from fastapi import APIRouter, HTTPException
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(
+    schemes=["bcrypt"],
+    deprecated="auto"
+)
 
 router = APIRouter(
     prefix="/vendors",
@@ -13,10 +19,13 @@ router = APIRouter(
 @router.post("/")
 async def create_vendor(vendor: VendorCreate):
     try:
-        # Convert the Pydantic model into a dictionary
         vendor_data = vendor.model_dump()
 
-        # Insert vendor into MongoDB
+        # Hash password before storing it
+        vendor_data["password"] = pwd_context.hash(
+            vendor_data["password"]
+        )
+
         result = db.vendors.insert_one(vendor_data)
 
         return {
@@ -29,6 +38,28 @@ async def create_vendor(vendor: VendorCreate):
             status_code=500,
             detail=str(error)
         )
+
+@router.post("/login")
+async def login_vendor(email: str, password: str):
+    vendor = db.vendors.find_one({"email": email})
+
+    if not vendor:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid email or password"
+        )
+
+    if not pwd_context.verify(password, vendor["password"]):
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid email or password"
+        )
+
+    return {
+        "message": "Login successful",
+        "vendor_id": str(vendor["_id"]),
+        "company_name": vendor["company_name"]
+    }
 
 @router.get("/")
 async def get_vendors():

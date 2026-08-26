@@ -13,6 +13,8 @@ class Material(BaseModel):
 class VendorCreate(BaseModel):
     company_name: str
     email: str
+    password: str
+
     phone: Optional[str] = None
     location: Optional[str] = None
     materials: List[Material] = []

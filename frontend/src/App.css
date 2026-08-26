@@ -823,3 +823,176 @@ button {
     gap: 12px;
   }
 }
+
+/* AUTH PAGES */
+
+.auth-page {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #0b0b0f;
+}
+
+.auth-logo {
+  position: absolute;
+  top: 28px;
+  left: 5%;
+  z-index: 2;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-logo span span {
+  color: #aa92ff;
+}
+
+.auth-background {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(130px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.auth-glow-left {
+  left: -300px;
+  top: -100px;
+  background: #7557ff;
+}
+
+.auth-glow-right {
+  right: -300px;
+  bottom: -150px;
+  background: #ec5a9a;
+}
+
+.auth-container {
+  width: 100%;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 110px 20px 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 45px;
+  border-radius: 22px;
+  background: rgba(18, 18, 24, 0.9);
+  border: 1px solid #2a2a35;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+.auth-card h1 {
+  margin: 14px 0 10px;
+  font-size: 2.2rem;
+  letter-spacing: -0.04em;
+}
+
+.auth-subtitle {
+  margin: 0 0 32px;
+  color: #a1a1b0;
+  line-height: 1.6;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #d7d7df;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 15px;
+  color: white;
+  font: inherit;
+  background: #0e0e13;
+  border: 1px solid #343440;
+  border-radius: 10px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #7557ff;
+  box-shadow: 0 0 0 3px rgba(117, 87, 255, 0.12);
+}
+
+.password-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-label button {
+  padding: 0;
+  color: #aa92ff;
+  font-size: 0.82rem;
+  background: transparent;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 6px;
+  padding: 15px;
+}
+
+.auth-switch {
+  margin: 28px 0 0;
+  text-align: center;
+  color: #a1a1b0;
+  font-size: 0.9rem;
+}
+
+.auth-switch a {
+  color: #aa92ff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.auth-footer {
+  position: relative;
+  z-index: 1;
+  padding: 25px;
+  margin: 0;
+  text-align: center;
+  color: #666674;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 500px) {
+  .auth-card {
+    padding: 32px 24px;
+  }
+
+  .auth-logo {
+    left: 24px;
+  }
+}
+
+.register-card {
+  max-width: 520px;
+}
