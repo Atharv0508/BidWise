@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database.mongodb import db
+from app.api.vendors import router as vendors_router
 
 app = FastAPI(
     title="BidWise API",
@@ -20,6 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(vendors_router)
 
 @app.get("/")
 async def root():
