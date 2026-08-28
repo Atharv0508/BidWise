@@ -1,3 +1,5 @@
+/* ================= GLOBAL PAGE ================= */
+
 .dashboard-page {
   min-height: 100vh;
   display: flex;
@@ -329,10 +331,6 @@
   color: #9696a2;
 }
 
-.dashboard-button {
-  white-space: nowrap;
-}
-
 /* ================= STATISTICS ================= */
 
 .statistics-grid {
@@ -495,7 +493,10 @@
   margin-top: 15px;
   padding: 4px;
   border-radius: 50%;
-  background: conic-gradient(#38bdf8 87%, rgba(255, 255, 255, 0.08) 0);
+  background: conic-gradient(
+    #38bdf8 87%,
+    rgba(255, 255, 255, 0.08) 0
+  );
 }
 
 .score-circle div {
@@ -505,7 +506,7 @@
   background: #18181f;
 }
 
-/* ================= PANELS ================= */
+/* ================= OVERVIEW ================= */
 
 .overview-grid {
   display: grid;
@@ -544,6 +545,8 @@
   cursor: pointer;
   font-size: 0.78rem;
 }
+
+/* ================= PIPELINE ================= */
 
 .pipeline-content {
   display: grid;
@@ -656,82 +659,160 @@
   color: #c3a4ff;
 }
 
-/* ================= AI PANEL ================= */
+/* ================= TENDER PERFORMANCE ================= */
 
-.ai-insight {
-  background:
-    radial-gradient(
-      circle at 80% 10%,
-      rgba(135, 86, 255, 0.15),
-      transparent 35%
-    ),
-    rgba(20, 20, 27, 0.9);
+.tender-performance {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
-.ai-badge {
-  padding: 7px 10px;
-  border-radius: 20px;
-  color: #c3a4ff;
-  background: rgba(139, 92, 246, 0.12);
+.performance-header {
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.performance-filter {
+  min-width: 110px;
+  padding: 8px 30px 8px 10px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #e5e5ec;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.performance-filter option {
+  background: #1a1a22;
+  color: white;
+}
+
+.performance-score {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.performance-circle {
+  width: 135px;
+  height: 135px;
+  flex-shrink: 0;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(
+    #8b5cf6 0%,
+    #ec4899 40%,
+    #f59e0b 60%,
+    rgba(255, 255, 255, 0.08) 60%
+  );
+}
+
+.performance-circle > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #17171e;
+}
+
+.performance-circle strong {
+  display: block;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #f5f5f7;
+}
+
+.performance-circle span {
+  display: block;
+  margin-top: 7px;
+  color: #898995;
   font-size: 0.68rem;
 }
 
-.insight-score {
-  margin: 35px 0 20px;
-}
-
-.insight-score > div:first-child {
+.performance-summary {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
-  align-items: end;
+  flex-direction: column;
+  gap: 17px;
 }
 
-.insight-score span {
-  color: #8d8d99;
-  font-size: 0.78rem;
+.performance-summary > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.insight-score strong {
-  font-size: 2rem;
+.performance-summary > div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-.insight-score strong span {
-  font-size: 0.8rem;
-}
-
-.score-meter {
-  height: 9px;
-  margin-top: 13px;
-  overflow: hidden;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.score-meter span {
-  width: 92%;
-  height: 100%;
+.performance-summary small {
   display: block;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #8b5cf6, #ec4899, #f59e0b);
+  color: #9696a2;
+  font-size: 0.75rem;
 }
 
-.insight-text {
-  color: #9999a5;
-  font-size: 0.84rem;
-  line-height: 1.7;
+.performance-summary strong {
+  display: block;
+  color: #f2f2f6;
+  font-size: 1.15rem;
 }
 
-.insight-text strong {
-  color: #dedee7;
+.performance-label {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  display: inline-block;
+  border-radius: 50%;
 }
 
-.insight-button {
-  width: 100%;
-  margin-top: 18px;
-  padding: 13px;
+.won-dot {
+  background: #a879ff;
+  box-shadow: 0 0 10px rgba(168, 121, 255, 0.6);
 }
 
-/* ================= RECENT ================= */
+.lost-dot {
+  background: #ef72ac;
+  box-shadow: 0 0 10px rgba(239, 114, 172, 0.5);
+}
+
+/* This targets Total Bids, which has no dot */
+.performance-summary > div:last-child {
+  padding-left: 19px;
+}
+
+.performance-footer {
+  margin-top: auto;
+  padding-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.performance-footer > span {
+  color: #8d8d99;
+  font-size: 0.76rem;
+}
+
+.performance-footer strong {
+  color: #e4e4ea;
+  text-transform: capitalize;
+}
+
+/* ================= RECENT OPPORTUNITIES ================= */
 
 .recent-section {
   position: relative;
@@ -838,6 +919,16 @@
   .opportunity-details {
     gap: 15px;
   }
+
+  .performance-score {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 950px) {
@@ -868,13 +959,13 @@
     font-size: 1.2rem;
   }
 
+  .notification-dot {
+    display: none;
+  }
+
   .dashboard-main {
     width: calc(100% - 80px);
     margin-left: 80px;
-  }
-
-  .overview-grid {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -912,6 +1003,26 @@
   .profile-arrow {
     display: none;
   }
+
+  .performance-score {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .performance-summary {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .performance-summary > div:last-child {
+    padding-left: 0;
+  }
+
+  .performance-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 550px) {
@@ -936,5 +1047,13 @@
   .section-heading {
     gap: 15px;
     flex-direction: column;
+  }
+
+  .performance-header {
+    flex-direction: column;
+  }
+
+  .performance-summary {
+    grid-template-columns: 1fr;
   }
 }

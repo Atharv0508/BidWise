@@ -1,10 +1,45 @@
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import "./DashboardPage.css";
 
 function DashboardPage() {
-const navigate = useNavigate();
-    const opportunities = [
+  const navigate = useNavigate();
+
+  const [performanceFilter, setPerformanceFilter] = useState("Month");
+
+  const performanceData: Record<
+    string,
+    { won: number; notWon: number; total: number; winRate: number }
+  > = {
+    Week: {
+      won: 4,
+      notWon: 2,
+      total: 6,
+      winRate: 67,
+    },
+    Month: {
+      won: 12,
+      notWon: 8,
+      total: 20,
+      winRate: 60,
+    },
+    "3 Months": {
+      won: 28,
+      notWon: 19,
+      total: 47,
+      winRate: 60,
+    },
+    "6 Months": {
+      won: 51,
+      notWon: 34,
+      total: 85,
+      winRate: 60,
+    },
+  };
+
+  const currentPerformance = performanceData[performanceFilter];
+
+  const opportunities = [
     {
       title: "Smart City Infrastructure Development",
       organization: "Urban Development Authority",
@@ -40,7 +75,6 @@ const navigate = useNavigate();
       <aside className="dashboard-sidebar">
         <Link to="/" className="dashboard-logo">
           <span className="logo-mark">B</span>
-
           <span>
             BID<span>WISE</span>
           </span>
@@ -49,40 +83,70 @@ const navigate = useNavigate();
         <nav className="sidebar-nav">
           <p className="nav-label">WORKSPACE</p>
 
-          <button className="sidebar-item active">
+          <button
+            className="sidebar-item active"
+            onClick={() => navigate("/dashboard")}
+          >
             <span>⌂</span>
             Dashboard
           </button>
 
-          <button className="sidebar-item">
+          <button
+            className="sidebar-item"
+            onClick={() => navigate("/tenders")}
+          >
             <span>◈</span>
             Opportunities
           </button>
 
-          <button className="sidebar-item">
+          <button
+            className="sidebar-item"
+            onClick={() => navigate("/saved-tenders")}
+          >
             <span>☆</span>
             Saved Tenders
           </button>
 
-          <button className="sidebar-item">
+          {/* ANALYTICS */}
+          <button
+            className="sidebar-item"
+            onClick={() => navigate("/analytics")}
+          >
             <span>▣</span>
             Analytics
           </button>
 
+          <button
+            className="sidebar-item"
+            onClick={() => navigate("/payments")}
+          >
+            <span>₹</span>
+            Payments
+          </button>
+
           <p className="nav-label second-label">MANAGEMENT</p>
 
-          <button className="sidebar-item">
+          <button
+            className="sidebar-item"
+            onClick={() => navigate("/vendors")}
+          >
             <span>◉</span>
             Vendors
           </button>
 
-          <button className="sidebar-item">
+          <button
+            className="sidebar-item"
+            onClick={() => navigate("/notifications")}
+          >
             <span>◌</span>
             Notifications
             <span className="notification-dot">3</span>
           </button>
 
-          <button className="sidebar-item">
+          <button
+            className="sidebar-item"
+            onClick={() => navigate("/settings")}
+          >
             <span>⚙</span>
             Settings
           </button>
@@ -115,6 +179,7 @@ const navigate = useNavigate();
 
           <div className="topbar-actions">
             <button className="icon-button">⌕</button>
+
             <button className="icon-button notification-button">
               ♢
               <span />
@@ -133,9 +198,7 @@ const navigate = useNavigate();
           </div>
         </header>
 
-        {/* CONTENT */}
         <div className="dashboard-content">
-
           {/* WELCOME HEADER */}
           <section className="welcome-section">
             <div>
@@ -152,10 +215,6 @@ const navigate = useNavigate();
                 Here is what is happening with your tender opportunities today.
               </p>
             </div>
-
-            <button className="primary-button dashboard-button">
-              Explore Opportunities →
-            </button>
           </section>
 
           {/* QUICK STATISTICS */}
@@ -232,8 +291,6 @@ const navigate = useNavigate();
 
           {/* OVERVIEW */}
           <section className="overview-grid">
-
-            {/* TENDER OVERVIEW */}
             <div className="dashboard-panel opportunity-overview">
               <div className="panel-header">
                 <div>
@@ -241,16 +298,18 @@ const navigate = useNavigate();
                   <h2>Tender opportunity pipeline</h2>
                 </div>
 
-                <button className="panel-action">View Analytics →</button>
+                <button
+                  className="panel-action"
+                  onClick={() => navigate("/analytics")}
+                >
+                  View Analytics →
+                </button>
               </div>
 
               <div className="pipeline-content">
                 <div className="pipeline-chart">
                   <div className="pipeline-bar">
-                    <span className="pipeline-label">
-                      New Opportunities
-                    </span>
-
+                    <span className="pipeline-label">New Opportunities</span>
                     <div className="pipeline-track">
                       <div className="pipeline-fill new-fill">
                         <strong>42</strong>
@@ -259,10 +318,7 @@ const navigate = useNavigate();
                   </div>
 
                   <div className="pipeline-bar">
-                    <span className="pipeline-label">
-                      Under Analysis
-                    </span>
-
+                    <span className="pipeline-label">Under Analysis</span>
                     <div className="pipeline-track">
                       <div className="pipeline-fill analysis-fill">
                         <strong>18</strong>
@@ -271,10 +327,7 @@ const navigate = useNavigate();
                   </div>
 
                   <div className="pipeline-bar">
-                    <span className="pipeline-label">
-                      Shortlisted
-                    </span>
-
+                    <span className="pipeline-label">Shortlisted</span>
                     <div className="pipeline-track">
                       <div className="pipeline-fill shortlist-fill">
                         <strong>9</strong>
@@ -283,10 +336,7 @@ const navigate = useNavigate();
                   </div>
 
                   <div className="pipeline-bar">
-                    <span className="pipeline-label">
-                      Ready to Bid
-                    </span>
-
+                    <span className="pipeline-label">Ready to Bid</span>
                     <div className="pipeline-track">
                       <div className="pipeline-fill ready-fill">
                         <strong>5</strong>
@@ -313,39 +363,73 @@ const navigate = useNavigate();
               </div>
             </div>
 
-            {/* AI INSIGHT */}
-            <div className="dashboard-panel ai-insight">
-              <div className="ai-glow" />
-
-              <div className="panel-header">
+            {/* TENDER PERFORMANCE */}
+            <div className="dashboard-panel tender-performance">
+              <div className="panel-header performance-header">
                 <div>
-                  <p className="panel-eyebrow">AI INSIGHT</p>
-                  <h2>Your bidding intelligence</h2>
+                  <p className="panel-eyebrow">BIDDING PERFORMANCE</p>
+                  <h2>Your tender results</h2>
                 </div>
 
-                <span className="ai-badge">✦ AI Powered</span>
+                <select
+                  className="performance-filter"
+                  value={performanceFilter}
+                  onChange={(event) =>
+                    setPerformanceFilter(event.target.value)
+                  }
+                >
+                  <option value="Week">This Week</option>
+                  <option value="Month">This Month</option>
+                  <option value="3 Months">3 Months</option>
+                  <option value="6 Months">6 Months</option>
+                </select>
               </div>
 
-              <div className="insight-score">
-                <div>
-                  <span>Opportunity score</span>
-                  <strong>92<span>/100</span></strong>
+              <div className="performance-score">
+                <div className="performance-circle">
+                  <div>
+                    <strong>{currentPerformance.winRate}%</strong>
+                    <span>Win Rate</span>
+                  </div>
                 </div>
 
-                <div className="score-meter">
-                  <span />
+                <div className="performance-summary">
+                  <div>
+                    <span className="performance-label won-dot" />
+                    <div>
+                      <small>Tenders Won</small>
+                      <strong>{currentPerformance.won}</strong>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="performance-label lost-dot" />
+                    <div>
+                      <small>Not Won</small>
+                      <strong>{currentPerformance.notWon}</strong>
+                    </div>
+                  </div>
+
+                  <div>
+                    <small>Total Bids</small>
+                    <strong>{currentPerformance.total}</strong>
+                  </div>
                 </div>
               </div>
 
-              <p className="insight-text">
-                Based on your company profile and previous tender activity,
-                <strong> 3 high-value opportunities</strong> are strongly
-                recommended for review.
-              </p>
+              <div className="performance-footer">
+                <span>
+                  Performance for{" "}
+                  <strong>{performanceFilter.toLowerCase()}</strong>
+                </span>
 
-              <button className="secondary-button insight-button">
-                View AI Recommendations →
-              </button>
+                <button
+                  className="panel-action"
+                  onClick={() => navigate("/analytics")}
+                >
+                  Detailed Analytics →
+                </button>
+              </div>
             </div>
           </section>
 
@@ -356,10 +440,6 @@ const navigate = useNavigate();
                 <p className="panel-eyebrow">LATEST MATCHES</p>
                 <h2>Recent opportunities</h2>
               </div>
-
-              <button className="panel-action">
-                View all opportunities →
-              </button>
             </div>
 
             <div className="opportunities-list">
@@ -395,7 +475,16 @@ const navigate = useNavigate();
                       <strong>{opportunity.match}%</strong>
                     </div>
 
-                    <button className="view-button">View →</button>
+                    <button
+                      className="view-button"
+                      onClick={() =>
+                        navigate(
+                          `/tenders/${encodeURIComponent(opportunity.title)}`
+                        )
+                      }
+                    >
+                      View →
+                    </button>
                   </div>
                 </div>
               ))}
