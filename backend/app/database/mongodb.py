@@ -13,3 +13,11 @@ if not MONGODB_URL:
 
 client = MongoClient(MONGODB_URL)
 db = client[MONGODB_DATABASE]
+
+db.saved_tenders.create_index(
+    [
+        ("vendor_id", 1),
+        ("tender_id", 1),
+    ],
+    unique=True,
+)
