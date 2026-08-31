@@ -74,6 +74,7 @@
   border-radius: 10px;
   text-align: left;
   transition: 0.2s ease;
+  cursor: pointer;
 }
 
 .details-sidebar-item:hover {
@@ -159,6 +160,7 @@
   background: transparent;
   border: 1px solid #302d3d;
   border-radius: 9px;
+  cursor: pointer;
 }
 
 .details-back-button:hover {
@@ -387,28 +389,66 @@
   margin-top: 35px;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 14px;
+  flex-wrap: wrap;
 }
 
-.details-save-button {
+.details-analysis-button,
+.details-save-button,
+.details-primary-button {
   padding: 13px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* START AI ANALYSIS */
+
+.details-analysis-button {
+  color: #c5b8ff;
+  background: rgba(117, 87, 255, 0.12);
+  border: 1px solid rgba(150, 126, 255, 0.45);
+  font-weight: 700;
+}
+
+.details-analysis-button:hover {
+  transform: translateY(-2px);
+  background: rgba(117, 87, 255, 0.2);
+  box-shadow: 0 8px 25px rgba(117, 87, 255, 0.18);
+}
+
+/* SAVE TENDER */
+
+.details-save-button {
   color: #d8d8e0;
   background: #17171e;
   border: 1px solid #30303b;
-  border-radius: 10px;
 }
+
+.details-save-button:hover {
+  transform: translateY(-2px);
+  background: #202028;
+}
+
+/* PREPARE BID */
 
 .details-primary-button {
   padding: 13px 22px;
   color: white;
   font-weight: 700;
   background: linear-gradient(135deg, #7557ff, #5f43d6);
-  border-radius: 10px;
+  border: none;
   box-shadow: 0 10px 30px rgba(117, 87, 255, 0.2);
 }
 
 .details-primary-button:hover {
   transform: translateY(-2px);
+  box-shadow: 0 14px 35px rgba(117, 87, 255, 0.28);
 }
 
 /* NOT FOUND */
@@ -427,7 +467,9 @@
   padding: 12px 18px;
   color: white;
   background: #7557ff;
+  border: none;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 /* RESPONSIVE */
@@ -452,6 +494,18 @@
 
   .details-info-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .details-actions {
+    justify-content: stretch;
+  }
+
+  .details-analysis-button,
+  .details-save-button,
+  .details-primary-button {
+    flex: 1;
   }
 }
 

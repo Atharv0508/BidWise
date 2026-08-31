@@ -7,6 +7,10 @@ import DashboardPage from "./pages/DashboardPage";
 import TendersPage from "./pages/TendersPage";
 import SavedTendersPage from "./pages/SavedTendersPage";
 import TenderDetailsPage from "./pages/TenderDetailsPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import AIAnalysisInputPage from "./pages/AIAnalysisInputPage";
+import AIAnalysisResultsPage from "./pages/AIAnalysisResultsPage";
+import BidPreparationPage from "./pages/BidPreparationPage";
 
 function App() {
   return (
@@ -22,14 +26,38 @@ function App() {
 
         {/* TENDERS */}
         <Route path="/tenders" element={<TendersPage />} />
+
+        {/* AI ANALYSIS INPUT */}
+        <Route
+          path="/tenders/:tenderTitle/ai-analysis"
+          element={<AIAnalysisInputPage />}
+        />
+
+        {/* AI ANALYSIS RESULTS */}
+        <Route
+          path="/analysis/results/:tenderTitle"
+          element={<AIAnalysisResultsPage />}
+        />
+
+        <Route
+          path="/tenders/:tenderTitle/prepare-bid"
+          element={<BidPreparationPage />}
+        />
+        
+        {/* TENDER DETAILS */}
         <Route
           path="/tenders/:tenderTitle"
           element={<TenderDetailsPage />}
         />
+
+        {/* SAVED TENDERS */}
         <Route
           path="/saved-tenders"
           element={<SavedTendersPage />}
         />
+
+        {/* ANALYTICS */}
+        <Route path="/analytics" element={<AnalyticsPage />} />
       </Routes>
     </BrowserRouter>
   );

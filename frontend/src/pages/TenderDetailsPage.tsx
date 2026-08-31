@@ -102,11 +102,28 @@ function TenderDetailsPage() {
     return (
       <div className="tender-details-not-found">
         <h1>Tender not found</h1>
+
         <button onClick={() => navigate("/tenders")}>
           ← Back to Opportunities
         </button>
       </div>
     );
+  }
+
+  // CHECK WHETHER THIS TENDER ALREADY HAS AN AI ANALYSIS
+  const storedAnalysis = localStorage.getItem("currentAnalysisRequest");
+
+  let hasAnalysis = false;
+
+  try {
+    if (storedAnalysis) {
+      const parsedAnalysis = JSON.parse(storedAnalysis);
+
+      hasAnalysis =
+        parsedAnalysis?.tender?.title === tender.title;
+    }
+  } catch {
+    hasAnalysis = false;
   }
 
   const isSaved = savedTenderTitles.includes(tender.title);
@@ -117,10 +134,21 @@ function TenderDetailsPage() {
       : [...savedTenderTitles, tender.title];
 
     setSavedTenderTitles(updatedSavedTenders);
+
     localStorage.setItem(
       "savedTenders",
       JSON.stringify(updatedSavedTenders)
     );
+  };
+
+  const handleAIAnalysisClick = () => {
+    if (hasAnalysis) {
+      // ANALYSIS ALREADY EXISTS → OPEN RESULTS
+      navigate(`/analysis/results/${encodeURIComponent(tender.title)}`);
+    } else {
+      // NO ANALYSIS YET → OPEN INPUT FORM
+      navigate(`/tenders/${encodeURIComponent(tender.title)}/ai-analysis`);
+    }
   };
 
   return (
@@ -129,6 +157,7 @@ function TenderDetailsPage() {
       <aside className="details-sidebar">
         <Link to="/" className="details-logo">
           <span className="details-logo-mark">B</span>
+
           <span>
             BID<span>WISE</span>
           </span>
@@ -190,11 +219,11 @@ function TenderDetailsPage() {
           </button>
 
           <button
-                className="details-sidebar-item"
-                onClick={() => navigate("/payments")}
+            className="details-sidebar-item"
+            onClick={() => navigate("/payments")}
           >
-                <span>₹</span>
-                Payments
+            <span>₹</span>
+            Payments
           </button>
 
           <button
@@ -208,6 +237,7 @@ function TenderDetailsPage() {
 
         <div className="details-sidebar-upgrade">
           <div className="details-upgrade-icon">✦</div>
+
           <div>
             <strong>BidWise AI</strong>
             <p>Smarter tender decisions.</p>
@@ -231,6 +261,7 @@ function TenderDetailsPage() {
 
           <div className="details-user-profile">
             <div className="details-user-avatar">A</div>
+
             <div>
               <strong>Atharv</strong>
               <span>Vendor Account</span>
@@ -239,6 +270,7 @@ function TenderDetailsPage() {
         </header>
 
         <div className="tender-details-content">
+          {/* HERO */}
           <section className="details-hero">
             <div className="details-hero-main">
               <p className="details-eyebrow">
@@ -310,13 +342,25 @@ function TenderDetailsPage() {
           {/* ACTIONS */}
           <section className="details-actions">
             <button
+              className="details-ai-analysis-button"
+              onClick={handleAIAnalysisClick}
+            >
+              {hasAnalysis ? "View Analysis →" : "✦ Start AI Analysis"}
+            </button>
+
+            <button
               className="details-save-button"
               onClick={handleSaveTender}
             >
               {isSaved ? "★ Saved Tender" : "☆ Save Tender"}
             </button>
 
-            <button className="details-primary-button">
+            <button
+              className="details-primary-button"
+              onClick={() =>
+              navigate(`/tenders/${encodeURIComponent(tender.title)}/prepare-bid`)
+              }
+            >
               Start Preparing Bid →
             </button>
           </section>
